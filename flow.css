@@ -69,7 +69,7 @@ body{background:#EDE6DA; font-family:var(--kaku); min-height:100vh; display:flex
 .q-body.leaving{opacity:0; transform:translateX(-16px)}
 .q-scenario{font-family:var(--maru); font-weight:700; font-size:21px; line-height:1.75; color:var(--ink); text-align:center; word-break:keep-all; overflow-wrap:break-word; text-wrap:balance}
 .q-scale{display:flex; flex-direction:column; align-items:center; gap:15px}
-.q-pole{font-size:14px; line-height:1.6; text-align:center; max-width:120px; word-break:break-all; overflow-wrap:break-word; font-weight:700}
+.q-pole{font-size:14px; line-height:1.6; text-align:center; font-weight:700}
 .q-arrow{font-family:var(--mono); font-style:normal; font-variant-emoji:text}
 .q-dots{display:flex; align-items:center; gap:12px; padding:6px 0}
 .q-dot{appearance:none; cursor:pointer; border-radius:999px; background:#fff; transition:transform .12s, background .15s, border-color .15s; border:2.5px solid}
