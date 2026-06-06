@@ -70,6 +70,7 @@ body{background:#EDE6DA; font-family:var(--kaku); min-height:100vh; display:flex
 .q-scenario{font-family:var(--maru); font-weight:700; font-size:21px; line-height:1.75; color:var(--ink); text-align:center; word-break:auto-phrase; text-wrap:balance}
 .q-scale{display:flex; flex-direction:column; align-items:center; gap:15px}
 .q-pole{font-size:14px; line-height:1.6; text-align:center; max-width:30ch; word-break:auto-phrase; text-wrap:balance; font-weight:700}
+.q-arrow{font-family:var(--mono); font-style:normal; font-variant-emoji:text}
 .q-dots{display:flex; align-items:center; gap:12px; padding:6px 0}
 .q-dot{appearance:none; cursor:pointer; border-radius:999px; background:#fff; transition:transform .12s, background .15s, border-color .15s; border:2.5px solid}
 .q-dot.d1,.q-dot.d6{width:38px;height:38px}

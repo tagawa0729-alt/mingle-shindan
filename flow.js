@@ -112,12 +112,12 @@
             <div class="q-qnum">Question ${i+1}</div>
             <div class="q-scenario">${q.s}</div>
             <div class="q-scale">
-              <div class="q-pole q-pole-l"><span class="q-arrow">◀</span><span>${q.l}</span></div>
+              <div class="q-pole q-pole-l"><span class="q-arrow">&#x25C4;&#xFE0E;</span><span>${q.l}</span></div>
               <div class="q-dots">
                 <div class="q-track" aria-hidden="true"></div>
                 ${[1,2,3,4,5,6].map(v=>`<button class="q-dot d${v} ${v<=3?'side-l':'side-r'}" data-v="${v}" aria-label="${v<=3?q.l:q.r}寄り（6段階の${v}）"></button>`).join('')}
               </div>
-              <div class="q-pole q-pole-r"><span>${q.r}</span><span class="q-arrow">▶</span></div>
+              <div class="q-pole q-pole-r"><span>${q.r}</span><span class="q-arrow">&#x25BA;&#xFE0E;</span></div>
             </div>
           </div>
         </div>`;
