@@ -3,8 +3,8 @@
 *{box-sizing:border-box; margin:0; padding:0}
 :root{ --cream:#FBF6EE; --cream-2:#F4ECDF; --surface:#FFFFFF; --ink:#2B2521; --ink-soft:#6F645B; --ink-faint:#A89C90; --coral:#F0714A; --teal:#2BAE96; --honey:#F2A93B; --line:#EEE4D4; --maru:"Zen Maru Gothic",sans-serif; --kaku:"Zen Kaku Gothic New",sans-serif; --mono:"Outfit",sans-serif; }
 body{background:#EDE6DA; font-family:var(--kaku); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:30px 16px}
-.stage{display:flex; align-items:center; justify-content:center}
-#app{ --accent:var(--coral); --accent-d:#c2502d; --accent-l:#FDEDE5; }
+.stage{display:flex; align-items:center; justify-content:center; width:100%}
+#app{ --accent:var(--coral); --accent-d:#c2502d; --accent-l:#FDEDE5; max-width:430px; width:100%; margin:0 auto; }
 .scr{min-height:100%; display:flex; flex-direction:column; padding:30px 24px 34px}
 
 /* ============ アローバッジ付きCTA（ブランド固有） ============ */
