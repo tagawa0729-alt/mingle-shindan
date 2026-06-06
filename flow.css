@@ -1,0 +1,102 @@
+/* Mingle 診断フロー — 画面スタイル（landing / quiz / analyzing）
+   ブランド：cream地・三角ロゴ・coral/honey/teal・絵文字なし・細いライン＋色ドット */
+*{box-sizing:border-box; margin:0; padding:0}
+:root{ --cream:#FBF6EE; --cream-2:#F4ECDF; --surface:#FFFFFF; --ink:#2B2521; --ink-soft:#6F645B; --ink-faint:#A89C90; --coral:#F0714A; --teal:#2BAE96; --honey:#F2A93B; --line:#EEE4D4; --maru:"Zen Maru Gothic",sans-serif; --kaku:"Zen Kaku Gothic New",sans-serif; --mono:"Outfit",sans-serif; }
+body{background:#EDE6DA; font-family:var(--kaku); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:30px 16px}
+.stage{display:flex; align-items:center; justify-content:center}
+#app{ --accent:var(--coral); --accent-d:#c2502d; --accent-l:#FDEDE5; }
+.scr{min-height:100%; display:flex; flex-direction:column; padding:30px 24px 34px}
+
+/* ============ アローバッジ付きCTA（ブランド固有） ============ */
+.cta-go{display:flex; align-items:center; justify-content:center; gap:12px; padding-right:14px}
+.cta-go .cta-label{transition:transform .2s}
+.cta-go-badge{width:34px; height:34px; flex:none; border-radius:999px; background:rgba(255,255,255,.22); color:#fff; display:flex; align-items:center; justify-content:center; transition:transform .2s, background .2s}
+.cta-go:hover .cta-go-badge{background:rgba(255,255,255,.32); transform:translateX(3px)}
+
+/* ============ ランディング ============ */
+.scr-landing{position:relative; align-items:center; text-align:center; justify-content:center; background:var(--cream); overflow:hidden; padding-top:24px}
+.scr-landing .ld-bg{position:absolute; inset:0; z-index:0; pointer-events:none}
+.scr-landing .ld-bg::before{content:""; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(43,37,33,.045) 1.1px, transparent 1.1px); background-size:26px 26px; -webkit-mask-image:radial-gradient(120% 80% at 50% 30%, #000 30%, transparent 78%); mask-image:radial-gradient(120% 80% at 50% 30%, #000 30%, transparent 78%)}
+.scr-landing .ld-bg::after{content:""; position:absolute; top:-12%; left:50%; transform:translateX(-50%); width:120%; height:60%; background:radial-gradient(closest-side, rgba(240,113,74,.12), transparent 72%)}
+.scr-landing .ld-inner{position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; width:100%}
+
+.ld-brand{display:flex; align-items:center; gap:9px; margin-bottom:6px}
+.ld-brand span{font-family:var(--maru); font-weight:900; font-size:18px; color:var(--ink); letter-spacing:.02em}
+
+/* ヒーロー：三角形（3人グループの象徴）＋頂点のキャラ */
+.ld-hero{position:relative; width:268px; height:196px; margin:6px 0 4px}
+.ld-tri{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+.ld-edge{stroke:var(--line); stroke-width:2.5; stroke-linecap:round}
+.ld-av{position:absolute; width:76px; height:76px; border-radius:50%; overflow:hidden; background:var(--c); border:3px solid var(--cream); box-shadow:0 12px 24px -12px rgba(50,30,12,.55); display:flex; align-items:flex-end; justify-content:center}
+.ld-av::after{content:""; position:absolute; inset:0; border-radius:50%; box-shadow:inset 0 0 0 2.5px color-mix(in srgb, var(--c) 60%, #fff)}
+.ld-av img{width:94%; height:100%; object-fit:contain; object-position:bottom}
+.ld-av.av-top{left:50%; top:0; transform:translateX(-50%)}
+.ld-av.av-left{left:4px; bottom:0}
+.ld-av.av-right{right:4px; bottom:0}
+
+.ld-eyebrow{font-family:var(--mono); font-weight:700; font-size:12px; letter-spacing:.22em; color:var(--coral); text-transform:uppercase; margin-top:6px; white-space:nowrap}
+.ld-title{font-family:var(--maru); font-weight:900; font-size:31px; line-height:1.32; margin:10px 0 0; color:var(--ink); letter-spacing:.01em; word-break:auto-phrase}
+.ld-sub{color:var(--ink-soft); font-size:14px; line-height:1.85; margin-top:12px; word-break:auto-phrase}
+
+.scr-landing .cta{max-width:308px; margin-top:22px}
+.ld-meta{display:flex; align-items:center; gap:11px; justify-content:center; color:var(--ink-faint); font-size:12.5px; font-weight:700; margin:14px 0 0; white-space:nowrap}
+.ld-meta .ld-dot{width:4px; height:4px; border-radius:999px; background:var(--ink-faint); opacity:.6}
+.ld-link{margin-top:16px; color:var(--ink-soft); font-size:13px; font-weight:700; text-decoration:none; padding:8px 4px}
+.ld-link:hover{color:var(--coral)}
+
+@media (prefers-reduced-motion:no-preference){
+  .ld-edge{stroke-dasharray:200; stroke-dashoffset:200; animation:ldDraw .9s ease forwards}
+  .ld-edge:nth-of-type(2){animation-delay:.18s} .ld-edge:nth-of-type(3){animation-delay:.36s}
+  .ld-av{animation:ldFade .6s cubic-bezier(.2,.8,.3,1.1) backwards}
+  .ld-av.av-top{animation-delay:.1s} .ld-av.av-left{animation-delay:.34s} .ld-av.av-right{animation-delay:.52s}
+  .ld-title{animation:ldUp .6s .5s backwards} .ld-sub{animation:ldUp .6s .62s backwards}
+  .scr-landing .cta{animation:ldUp .6s .74s backwards}
+}
+@keyframes ldDraw{to{stroke-dashoffset:0}}
+@keyframes ldFade{from{opacity:0}}
+@keyframes ldUp{from{opacity:0; transform:translateY(14px)}}
+
+/* ============ 設問 ============ */
+.scr-quiz{padding-top:22px; background:var(--cream)}
+.q-top{display:flex; align-items:center; gap:12px; margin-bottom:24px}
+.q-back{appearance:none; border:none; background:var(--cream-2); width:34px; height:34px; border-radius:999px; font-size:16px; color:var(--ink-soft); cursor:pointer; flex:none}
+.q-back:disabled{opacity:.4; cursor:default}
+.q-prog{flex:1; height:7px; background:var(--cream-2); border-radius:999px; overflow:hidden}
+.q-prog-fill{height:100%; background:linear-gradient(90deg,var(--honey),var(--coral)); border-radius:999px; transition:width .4s cubic-bezier(.3,.8,.3,1)}
+.q-count{font-family:var(--mono); font-size:13px; color:var(--ink-faint); font-weight:600; flex:none}
+.q-count b{color:var(--ink); font-size:16px}
+.q-body{flex:1; display:flex; flex-direction:column; justify-content:center; gap:30px; transition:opacity .24s, transform .24s}
+.q-body.leaving{opacity:0; transform:translateX(-16px)}
+.q-scenario{font-family:var(--maru); font-weight:700; font-size:21px; line-height:1.75; color:var(--ink); text-align:center; word-break:auto-phrase; text-wrap:balance}
+.q-scale{display:flex; flex-direction:column; align-items:center; gap:15px}
+.q-pole{font-size:14px; line-height:1.6; text-align:center; max-width:30ch; word-break:auto-phrase; text-wrap:balance; font-weight:700}
+.q-dots{display:flex; align-items:center; gap:12px; padding:6px 0}
+.q-dot{appearance:none; cursor:pointer; border-radius:999px; background:#fff; transition:transform .12s, background .15s, border-color .15s; border:2.5px solid}
+.q-dot.d1,.q-dot.d6{width:38px;height:38px}
+.q-dot.d2,.q-dot.d5{width:31px;height:31px}
+.q-dot.d3,.q-dot.d4{width:24px;height:24px}
+.q-dot:hover{transform:scale(1.12)}
+
+/* ============ 分析中 ============ */
+.scr-analyzing{align-items:center; justify-content:center; text-align:center; gap:24px; background:var(--cream)}
+.an-loop .an-draw{stroke-dasharray:360; stroke-dashoffset:360; animation:anDraw 1.9s ease forwards}
+@keyframes anDraw{to{stroke-dashoffset:0}}
+.an-loop svg circle{animation:anPop .5s}
+.an-loop svg circle:nth-of-type(2){animation-delay:.5s}
+.an-loop svg circle:nth-of-type(3){animation-delay:1s}
+@keyframes anPop{from{opacity:0; transform:scale(.4); transform-box:fill-box; transform-origin:center}}
+.an-text{font-family:var(--maru); font-weight:700; font-size:21px; line-height:1.6; color:var(--ink)}
+.an-axes{font-family:var(--mono); font-weight:600; font-size:13px; letter-spacing:.08em; color:var(--ink-faint)}
+@keyframes anFade{from{opacity:0; transform:translateY(6px)}}
+
+/* ============ 結果上のリスタート ============ */
+.restart{position:absolute; top:14px; right:14px; z-index:70; appearance:none; cursor:pointer; white-space:nowrap; font-family:var(--kaku); font-weight:700; font-size:11.5px; color:#fff; background:rgba(0,0,0,.22); backdrop-filter:blur(3px); border:none; padding:7px 13px; border-radius:999px}
+
+/* 端末フレーム: PC=ベゼル / モバイル=フルスクリーン */
+@media (max-width:480px){
+  body{padding:0; background:var(--cream)}
+  .stage{width:100%; height:100vh}
+  .phone{width:100%; height:100vh; border-radius:0; padding:0; box-shadow:none}
+  .phone-screen{border-radius:0}
+  .notch{display:none}
+}
