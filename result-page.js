@@ -190,11 +190,13 @@
     el.innerHTML = `<div class="email-card">
         <div class="share-handle"></div>
         <div class="email-h">取扱説明書を読む</div>
-        <div class="email-sub">リリース先行登録（無料）。<br>メールアドレスを入れるだけ。</div>
+        <div class="email-sub">Mingleは<b>ゲイ・バイ男性向け</b>の友達探しアプリです。<br>リリース先行登録（無料）でこの先を読めます。</div>
+        <div class="email-age-notice">※ 18歳未満の方はご登録いただけません</div>
         <form class="email-form" id="emailForm" novalidate>
           <input type="email" placeholder="メールアドレス" autocomplete="email" inputmode="email" required aria-label="メールアドレス">
-          <button type="submit" class="email-btn">送信する</button>
+          <button type="submit" class="email-btn">登録して読む</button>
         </form>
+        <div class="email-legal">登録することで、<a href="https://mingleapp.jp/terms" target="_blank" rel="noopener">利用規約</a>および<a href="https://mingleapp.jp/privacy" target="_blank" rel="noopener">プライバシーポリシー</a>に同意したものとみなします。18歳以上の方のみご利用いただけます。</div>
         <button class="email-x">あとで</button>
       </div>`;
     host.appendChild(el);
