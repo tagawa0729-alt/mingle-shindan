@@ -151,6 +151,8 @@
       if(m && sc){ setTimeout(()=>{ sc.scrollTo({top: m.offsetTop-20, behavior:'smooth'}); }, 250); }
     };
     root._mingleUnlock = doUnlock;
+    // 既登録なら即解除
+    try{ if(localStorage.getItem('mingle_email')) doUnlock(); }catch(_){}
     // メール登録（取扱説明書ゲート）：ボタン → モーダルシート
     root.querySelectorAll('.cta-unlock').forEach(b=> b.addEventListener('click',e=>{e.preventDefault(); const id=(root.querySelector('.result')||{}).getAttribute? root.querySelector('.result').getAttribute('data-type'):null; showEmailSheet(root, id);}));
     root.querySelectorAll('.cta-reg').forEach(b=> b.addEventListener('click',e=>{
