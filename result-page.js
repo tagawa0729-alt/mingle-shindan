@@ -191,12 +191,19 @@
         <div class="share-handle"></div>
         <div class="email-h">取扱説明書を読む</div>
         <div class="email-sub">Mingleは<b>ゲイ・バイ男性向け</b>の友達探しアプリです。<br>リリース先行登録（無料）でこの先を読めます。</div>
-        <div class="email-age-notice">※ 18歳未満の方はご登録いただけません</div>
         <form class="email-form" id="emailForm" novalidate>
-          <input type="email" placeholder="メールアドレス" autocomplete="email" inputmode="email" required aria-label="メールアドレス">
+          <div class="email-field-wrap">
+            <input type="email" id="emailInput" placeholder="メールアドレス" autocomplete="email" inputmode="email" required aria-label="メールアドレス">
+            <div class="email-err" id="emailErr" hidden>正しいメールアドレスを入力してください</div>
+          </div>
+          <label class="age-check-label">
+            <input type="checkbox" id="ageCheck">
+            <span>私は18歳以上です</span>
+          </label>
+          <div class="email-err" id="ageErr" hidden>18歳未満の方はご登録いただけません</div>
           <button type="submit" class="email-btn">登録して読む</button>
         </form>
-        <div class="email-legal">登録することで、<a href="https://mingleapp.jp/terms" target="_blank" rel="noopener">利用規約</a>および<a href="https://mingleapp.jp/privacy" target="_blank" rel="noopener">プライバシーポリシー</a>に同意したものとみなします。18歳以上の方のみご利用いただけます。</div>
+        <div class="email-legal">登録することで、<a href="https://mingleapp.jp/terms" target="_blank" rel="noopener">利用規約</a>および<a href="https://mingleapp.jp/privacy" target="_blank" rel="noopener">プライバシーポリシー</a>に同意したものとみなします。</div>
         <button class="email-x">あとで</button>
       </div>`;
     host.appendChild(el);
@@ -206,9 +213,16 @@
     el.addEventListener('click',e=>{ if(e.target===el) close(); });
     el.querySelector('#emailForm').addEventListener('submit', async (e)=>{
       e.preventDefault();
-      const input = el.querySelector('input[type=email]');
+      const input = el.querySelector('#emailInput');
+      const ageCheck = el.querySelector('#ageCheck');
+      const emailErr = el.querySelector('#emailErr');
+      const ageErr = el.querySelector('#ageErr');
       const email = (input.value||'').trim();
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ input.focus(); return; }
+      const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      emailErr.hidden = validEmail;
+      ageErr.hidden = ageCheck.checked;
+      if(!validEmail){ input.focus(); return; }
+      if(!ageCheck.checked){ return; }
       try{ localStorage.setItem('mingle_email', email); }catch(_){}
       if(window.MingleTrack){ window.MingleTrack('email_register', { type_id: typeId||'' }); }
       try{

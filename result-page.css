@@ -166,7 +166,11 @@ blockquote{font-size:14.5px; line-height:1.95; color:var(--ink-soft); padding:14
 .email-icon{display:flex; justify-content:center; margin-bottom:10px}
 .email-icon svg{filter:drop-shadow(0 6px 14px color-mix(in srgb, var(--accent, #F0714A) 40%, transparent))}
 .email-sub b{color:var(--ink); font-weight:700}
-.email-age-notice{font-size:11.5px; font-weight:700; color:#C2502D; background:#FFF0EC; border:1px solid #F0C4B4; border-radius:8px; padding:7px 12px; margin-bottom:14px; text-align:center}
+.email-field-wrap{width:100%}
+.email-err{font-size:11.5px; color:#C2502D; font-weight:700; margin-top:6px; margin-bottom:2px; text-align:left}
+.age-check-label{display:flex; align-items:center; gap:10px; cursor:pointer; font-size:13.5px; font-weight:700; color:var(--ink); margin:14px 0 4px; padding:12px 14px; background:var(--cream-2); border-radius:12px; border:1.5px solid var(--line); transition:border-color .15s}
+.age-check-label input[type=checkbox]{width:20px; height:20px; flex:none; accent-color:var(--accent,#F0714A); cursor:pointer}
+.age-check-label:has(input:checked){border-color:var(--accent,#F0714A)}
 .email-legal{font-size:10.5px; color:var(--ink-faint); line-height:1.75; text-align:center; margin-top:10px; padding:0 4px}
 .email-legal a{color:var(--ink-soft); text-decoration:underline}
 .email-ok{appearance:none; cursor:pointer; width:100%; background:var(--accent, #F0714A); color:#fff; border:none; font-family:var(--kaku); font-weight:700; font-size:15px; padding:15px; border-radius:14px; box-shadow:var(--shadow-sm); margin-top:14px}
