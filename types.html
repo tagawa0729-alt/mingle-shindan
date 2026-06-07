@@ -67,6 +67,20 @@ header p{color:var(--ink-soft); font-size:14.5px; margin-top:12px; line-height:1
 .sheet .info .sw{width:18px;height:18px;border-radius:6px}
 .sheet .info .hex{font-family:var(--mono); font-size:12px; font-weight:600; color:var(--ink-soft)}
 .sheet .close{position:absolute; z-index:4; top:13px; right:14px; width:34px;height:34px;border-radius:999px; background:rgba(255,255,255,.9); border:none; cursor:pointer; font-size:18px; color:var(--ink); display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm)}
+.sh-sec{margin-top:18px; padding-top:16px; border-top:1px solid var(--line)}
+.sh-hd{font-family:var(--mono); font-size:10.5px; font-weight:700; color:var(--coral); text-transform:uppercase; letter-spacing:.14em; margin-bottom:9px}
+.sh-p{font-size:13px; line-height:1.85; color:var(--ink-soft)}
+.sh-2col{margin-top:18px; padding-top:16px; border-top:1px solid var(--line); display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.sh-sub{font-size:10.5px; font-weight:700; color:var(--ink-faint); margin-bottom:8px; text-transform:uppercase; letter-spacing:.06em}
+.sh-ul{list-style:none; padding:0; margin:0}
+.sh-ul li{position:relative; padding-left:13px; font-size:12px; line-height:1.65; color:var(--ink-soft); margin-bottom:5px}
+.sh-ul li::before{content:"•"; position:absolute; left:0; color:var(--accent,var(--coral))}
+.sh-item{margin-bottom:13px}
+.sh-item b{font-size:12.5px; font-weight:700; color:var(--ink); display:block; margin-bottom:3px}
+.sh-item p{font-size:12px; line-height:1.75; color:var(--ink-soft)}
+.sh-lock{text-align:center; padding:18px; background:var(--cream-2); border-radius:14px; margin-top:18px}
+.sh-lock p{font-size:13px; color:var(--ink-soft); line-height:1.7; margin-bottom:14px}
+.sh-cta{display:inline-block; background:var(--coral); color:#fff; font-weight:700; font-size:13px; padding:10px 22px; border-radius:999px; text-decoration:none}
 footer{text-align:center; padding:0 20px 60px}
 footer a{display:inline-block; text-decoration:none; background:var(--coral); color:#fff; font-weight:700; font-size:15px; padding:15px 30px; border-radius:15px; box-shadow:var(--shadow-sm)}
 </style>
@@ -119,13 +133,46 @@ document.getElementById('grid').innerHTML = T.map((t,i)=>`
   </div>`).join('');
 
 const modal=document.getElementById('modal'), sheet=document.getElementById('sheet');
+function isReg(){try{return !!localStorage.getItem('mingle_email')}catch(e){return false}}
 function open(i){
-  const t=T[i]; sheet.style.setProperty('--g',grad(t.color));
-  sheet.innerHTML=`<button class="close" aria-label="閉じる">✕</button>
+  const t=T[i];
+  sheet.style.setProperty('--g',grad(t.color));
+  sheet.style.setProperty('--accent',t.color);
+  const li=a=>a.map(s=>`<li>${s}</li>`).join('');
+  const manualHtml = isReg() ? `
+    <div class="sh-sec">
+      <div class="sh-hd">★ 取扱説明書</div>
+      <div class="sh-sub" style="margin-bottom:10px">1. 無意識にやってしまうこと</div>
+      ${t.manual.unconscious.map(u=>`<div class="sh-item"><b>${u.t}</b><p>${u.d}</p></div>`).join('')}
+      <div class="sh-sub" style="margin-top:12px;margin-bottom:10px">2. Mingleでの動き方</div>
+      ${t.manual.mingle.map(u=>`<div class="sh-item"><b>${u.t}</b><p>${u.d}</p></div>`).join('')}
+    </div>` : `
+    <div class="sh-lock">
+      <p>取扱説明書は診断後に<br>登録すると読めます</p>
+      <a class="sh-cta" href="index.html">診断してみる →</a>
+    </div>`;
+  sheet.innerHTML=`
+    <button class="close" aria-label="閉じる">✕</button>
     <div class="top"><span class="code">${t.code}</span><img src="assets/characters/char_${t.id}.png" alt="${t.name}"></div>
-    <div class="info"><div class="id">${t.id}</div><h2>${t.name}</h2><div class="copy">${t.copy}</div>
-      <div class="swrow"><span class="sw" style="background:${t.color}"></span><span class="hex mono">${t.color}</span></div></div>`;
-  modal.classList.add('open'); sheet.querySelector('.close').onclick=close;
+    <div class="info">
+      <div class="id">${t.id}</div><h2>${t.name}</h2><div class="copy">${t.copy}</div>
+      <div class="sh-sec">
+        <div class="sh-hd">どんな人？</div>
+        <p class="sh-p">${t.intro}</p>
+      </div>
+      <div class="sh-sec">
+        <div class="sh-hd">3人組での役割</div>
+        <p class="sh-p">${t.role}</p>
+      </div>
+      <div class="sh-2col">
+        <div><div class="sh-sub">強み</div><ul class="sh-ul">${li(t.strengths)}</ul></div>
+        <div><div class="sh-sub">課題</div><ul class="sh-ul">${li(t.challenges)}</ul></div>
+      </div>
+      ${manualHtml}
+    </div>`;
+  modal.classList.add('open');
+  sheet.scrollTop=0;
+  sheet.querySelector('.close').onclick=close;
 }
 function close(){modal.classList.remove('open')}
 document.getElementById('grid').addEventListener('click',e=>{const tl=e.target.closest('.tile'); if(tl) open(+tl.dataset.i)});
