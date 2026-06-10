@@ -115,7 +115,7 @@
               <div class="q-pole q-pole-l"><span class="q-arrow">&#x25C4;&#xFE0E;</span><span>${q.l}</span></div>
               <div class="q-dots">
                 <div class="q-track" aria-hidden="true"></div>
-                ${[1,2,3,4,5,6].map(v=>`<button class="q-dot d${v} ${v<=3?'side-l':'side-r'}" data-v="${v}" aria-label="${v<=3?q.l:q.r}寄り（6段階の${v}）"></button>`).join('')}
+                ${[1,2,3,4,5,6].map(v=>`<button class="q-dot d${v} ${v<=3?'side-l':'side-r'}${state.ans[i]===v?' picked':''}" data-v="${v}" aria-label="${v<=3?q.l:q.r}寄り（6段階の${v}）"></button>`).join('')}
               </div>
               <div class="q-pole q-pole-r"><span>${q.r}</span><span class="q-arrow">&#x25BA;&#xFE0E;</span></div>
             </div>
