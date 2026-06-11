@@ -32,15 +32,11 @@
     return codeToId(l1+l2+l3+l4);
   }
 
-  const LS = "mingle_flow_v1";
-  function save(st){ try{ localStorage.setItem(LS, JSON.stringify(st)); }catch(e){} }
-  function load(){ try{ return JSON.parse(localStorage.getItem(LS)||"null"); }catch(e){ return null; } }
-
   function init(app){
-    let state = load() || { screen:"landing", idx:0, ans:[] };
+    let state = { screen:"landing", idx:0, ans:[] };
     var track = function(n,p){ if(window.MingleTrack) window.MingleTrack(n,p); };
 
-    function go(screen){ state.screen=screen; save(state); paint(); }
+    function go(screen){ state.screen=screen; paint(); }
 
     function paint(){
       if(state.screen==="landing") return landing();
@@ -123,15 +119,15 @@
         </div>`;
       const back = app.querySelector('.q-back');
       track('question_view', { question_no: i+1 });
-      back.onclick = ()=>{ if(state.idx>0){ state.idx--; save(state); quiz(); } };
+      back.onclick = ()=>{ if(state.idx>0){ state.idx--; quiz(); } };
       app.querySelectorAll('.q-dot').forEach(b=> b.onclick = ()=>{
         state.ans[i] = +b.dataset.v;
         track('question_answer', { question_no: i+1, value: +b.dataset.v });
         b.classList.add('picked');
         const body = app.querySelector('#qBody'); body.classList.add('leaving');
         setTimeout(()=>{
-          if(state.idx < Q.length-1){ state.idx++; save(state); quiz(); }
-          else { save(state); go("analyzing"); }
+          if(state.idx < Q.length-1){ state.idx++; quiz(); }
+          else { go("analyzing"); }
         }, 240);
       });
     }
@@ -157,7 +153,7 @@
       const el = app.querySelector('#anAxes'); let k=0;
       el.textContent = axes[0];
       const t = setInterval(()=>{ k=(k+1)%axes.length; el.textContent=axes[k]; el.style.animation='none'; void el.offsetWidth; el.style.animation='anFade .5s'; }, 620);
-      setTimeout(()=>{ clearInterval(t); state.type = score(state.ans); save(state); go("result"); }, 2700);
+      setTimeout(()=>{ clearInterval(t); state.type = score(state.ans); go("result"); }, 2700);
     }
 
     function result(){
@@ -166,10 +162,10 @@
       track('result_view', { type_id:id, type_name:T.name||'', type_code:T.code||'' });
       app.scrollTop=0;
       app.innerHTML = window.MingleResult.build(id, 'a') + `<button class="restart" aria-label="もう一度診断する">↻ もう一度</button>`;
-      window.MingleResult.wire(app, { onGoType:(gid)=>{ state.type=gid; save(state); result(); } });
+      window.MingleResult.wire(app, { onGoType:(gid)=>{ state.type=gid; result(); } });
       const r = app.querySelector('.result');
       requestAnimationFrame(()=>requestAnimationFrame(()=> r.classList.add('fx')));
-      app.querySelector('.restart').onclick = ()=>{ state={screen:"landing",idx:0,ans:[]}; save(state); paint(); };
+      app.querySelector('.restart').onclick = ()=>{ state={screen:"landing",idx:0,ans:[]}; paint(); };
     }
 
     paint();
