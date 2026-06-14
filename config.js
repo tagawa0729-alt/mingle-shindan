@@ -1,5 +1,5 @@
 /* Mingle 診断 — リリース設定（ここだけ差し替えればOK） */
-window.MINGLE_CONFIG = {
+window.CHILLIN_CONFIG = {
   // 事前登録ページのURL（結果末尾「事前登録する」ボタンの遷移先）
   registerUrl: "https://mingleapp.jp",
   // 診断ページのURL（シェア画像のQR / シェアリンクに使用）
@@ -15,6 +15,6 @@ window.MINGLE_CONFIG = {
 };
 
 /* 事前登録ボタンを押したときに開くURLを返す */
-window.MINGLE_REGISTER_URL = function(){
-  return (window.MINGLE_CONFIG && window.MINGLE_CONFIG.registerUrl) || "https://mingleapp.jp";
+window.CHILLIN_REGISTER_URL = function(){
+  return (window.CHILLIN_CONFIG && window.CHILLIN_CONFIG.registerUrl) || "https://mingleapp.jp";
 };

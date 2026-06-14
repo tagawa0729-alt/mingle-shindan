@@ -1,5 +1,5 @@
 /* Mingle 結果ページ — 描画ロジック（データ駆動）
-   コンテンツは window.MINGLE_TYPES（types-data.js）から取得。
+   コンテンツは window.CHILLIN_TYPES（types-data.js）から取得。
    build(typeId, variant) -> HTML文字列 / wire(scrollRoot) で挙動を配線。 */
 (function(){
   function lighten(hex,amt){const x=parseInt(hex.slice(1),16);let r=(x>>16)&255,g=(x>>8)&255,b=x&255;r=Math.round(r+(255-r)*amt);g=Math.round(g+(255-g)*amt);b=Math.round(b+(255-b)*amt);return`rgb(${r},${g},${b})`;}
@@ -62,7 +62,7 @@
             <div class="reg-ttl">続きは、<b>登録</b>すると読めます</div>
             <div class="reg-sub">リリース先行登録（無料）。メールを入れるだけ。</div>
             <button type="button" class="cta cta-unlock">登録して続きを読む</button>
-            <div class="reg-note"><span class="kw">無意識にやってしまうこと</span>／<span class="kw">Mingleでの動き方</span>が読めます</div>
+            <div class="reg-note"><span class="kw">無意識にやってしまうこと</span>／<span class="kw">ChillInでの動き方</span>が読めます</div>
           </div>
         </div>
       </div>
@@ -72,12 +72,12 @@
         <div class="sec-h"><span class="sec-n">06</span><h3>取扱説明書</h3></div>
         <h4 class="blk">1. 無意識にやってしまうこと</h4>
         ${t.manual.unconscious.map(u=>`<div class="man-item"><b>${u.t}</b><p>${u.d}</p></div>`).join('')}
-        <h4 class="blk">2. Mingleでの動き方</h4>
-        ${t.manual.mingle.map(u=>`<div class="man-item"><b>${u.t}</b><p>${u.d}</p></div>`).join('')}
+        <h4 class="blk">2. ChillInでの動き方</h4>
+        ${t.manual.chillin.map(u=>`<div class="man-item"><b>${u.t}</b><p>${u.d}</p></div>`).join('')}
       </div>
     </section>
     <section class="sec sec-end">
-      <p class="end-line">あなたに合うグループ、<br>Mingleでつくろう。</p>
+      <p class="end-line">あなたに合うグループ、<br>ChillInでつくろう。</p>
       <button class="cta cta-reg">事前登録する</button>
       <button class="ghost cta-share">結果をシェアする</button>
     </section>
@@ -122,7 +122,7 @@
 
   function build(typeId, variant){
     variant = variant || 'a';
-    const T = (window.MINGLE_TYPES||{})[typeId];
+    const T = (window.CHILLIN_TYPES||{})[typeId];
     if(!T){ return `<div style="padding:40px;font-family:sans-serif">未登録のタイプ: ${typeId}</div>`; }
     return `<div class="result v-${variant}" data-type="${typeId}" style="--accent:${T.color};--accent-d:${darken(T.color,.16)};--accent-l:${lighten(T.color,.82)}">
       <a class="result-nav" href="types.html" aria-label="16タイプ一覧を見る"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>16タイプ</span></a>
@@ -152,13 +152,13 @@
     };
     root._mingleUnlock = doUnlock;
     // 既登録なら即解除
-    try{ if(localStorage.getItem('mingle_email')) doUnlock(); }catch(_){}
+    try{ if(localStorage.getItem('chillin_email')) doUnlock(); }catch(_){}
     // メール登録（取扱説明書ゲート）：ボタン → モーダルシート
     root.querySelectorAll('.cta-unlock').forEach(b=> b.addEventListener('click',e=>{e.preventDefault(); const id=(root.querySelector('.result')||{}).getAttribute? root.querySelector('.result').getAttribute('data-type'):null; showEmailSheet(root, id);}));
     root.querySelectorAll('.cta-reg').forEach(b=> b.addEventListener('click',e=>{
       e.preventDefault();
-      if(window.MingleTrack) window.MingleTrack('cta_preregister');
-      const url = (window.MINGLE_REGISTER_URL && window.MINGLE_REGISTER_URL()) || 'https://mingleapp.jp';
+      if(window.ChillInTrack) window.ChillInTrack('cta_preregister');
+      const url = (window.CHILLIN_REGISTER_URL && window.CHILLIN_REGISTER_URL()) || 'https://mingleapp.jp';
       window.open(url, '_blank', 'noopener');
     }));
     root.querySelectorAll('.cta-share').forEach(b=> b.addEventListener('click',e=>{e.preventDefault(); const id=(root.querySelector('.result')||{}).getAttribute? root.querySelector('.result').getAttribute('data-type'):null; showShareSheet(root, id); if(opts.onShare) opts.onShare();}));
@@ -167,11 +167,11 @@
 
   // 結果カード画像を実寸で生成（html-to-image）。format: 'stories'|'ogp'
   async function renderCardPng(typeId, format){
-    const T = (window.MINGLE_TYPES||{})[typeId]; if(!T || !window.MingleShare || !window.htmlToImage) return null;
-    const sz = window.MingleShare.SIZES[format];
+    const T = (window.CHILLIN_TYPES||{})[typeId]; if(!T || !window.ChillInShare || !window.htmlToImage) return null;
+    const sz = window.ChillInShare.SIZES[format];
     const holder = document.createElement('div');
     holder.style.cssText = 'position:fixed;left:-99999px;top:0;pointer-events:none';
-    holder.innerHTML = `<div style="width:${sz.w}px;height:${sz.h}px">${window.MingleShare.build(T,format)}</div>`;
+    holder.innerHTML = `<div style="width:${sz.w}px;height:${sz.h}px">${window.ChillInShare.build(T,format)}</div>`;
     document.body.appendChild(holder);
     const node = holder.firstElementChild;
     await Promise.all([...node.querySelectorAll('img')].map(im=> im.complete?Promise.resolve():new Promise(r=>{im.onload=im.onerror=r;})));
@@ -187,12 +187,12 @@
     const old = host.querySelector('.email-sheet'); if(old) old.remove();
     const el = document.createElement('div');
     el.className = 'email-sheet';
-    const acc = ((window.MINGLE_TYPES||{})[typeId]||{}).color || '#F0714A';
+    const acc = ((window.CHILLIN_TYPES||{})[typeId]||{}).color || '#F0714A';
     el.style.setProperty('--accent', acc);
     el.innerHTML = `<div class="email-card">
         <div class="share-handle"></div>
         <div class="email-h">取扱説明書を読む</div>
-        <div class="email-sub">Mingleは<b>ゲイ・バイ男性向け</b>の友達探しアプリです。<br>リリース先行登録（無料）でこの先を読めます。</div>
+        <div class="email-sub">ChillInは<b>ゲイ・バイ男性向け</b>の友達探しアプリです。<br>リリース先行登録（無料）でこの先を読めます。</div>
         <form class="email-form" id="emailForm" novalidate>
           <div class="email-field-wrap">
             <input type="email" id="emailInput" placeholder="メールアドレス" autocomplete="email" inputmode="email" required aria-label="メールアドレス">
@@ -225,10 +225,10 @@
       ageErr.hidden = ageCheck.checked;
       if(!validEmail){ input.focus(); return; }
       if(!ageCheck.checked){ return; }
-      try{ localStorage.setItem('mingle_email', email); }catch(_){}
-      if(window.MingleTrack){ window.MingleTrack('email_register', { type_id: typeId||'' }); }
+      try{ localStorage.setItem('chillin_email', email); }catch(_){}
+      if(window.ChillInTrack){ window.ChillInTrack('email_register', { type_id: typeId||'' }); }
       try{
-        const ep = (window.MINGLE_CONFIG||{}).subscribeEndpoint;
+        const ep = (window.CHILLIN_CONFIG||{}).subscribeEndpoint;
         if(ep){ fetch(ep, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, type:typeId})}).catch(()=>{}); }
       }catch(_){}
       showEmailConfirmSheet(root, email, typeId);
@@ -240,7 +240,7 @@
     const host = root.closest('.phone-screen') || root;
     const el = document.createElement('div');
     el.className = 'email-sheet';
-    const acc = ((window.MINGLE_TYPES||{})[typeId]||{}).color || '#F0714A';
+    const acc = ((window.CHILLIN_TYPES||{})[typeId]||{}).color || '#F0714A';
     el.style.setProperty('--accent', acc);
     el.innerHTML = `<div class="email-card email-confirm">
         <div class="share-handle"></div>
@@ -258,16 +258,16 @@
   }
 
   function showShareSheet(root, typeId){
-    const cfg = window.MINGLE_CONFIG||{};
+    const cfg = window.CHILLIN_CONFIG||{};
     const base = (cfg.diagnoseUrl || 'https://shindan.mingleapp.jp').replace(/\/+$/,'');
-    const T = (window.MINGLE_TYPES||{})[typeId]||{};
+    const T = (window.CHILLIN_TYPES||{})[typeId]||{};
     // タイプ別シェアページ（OGP画像付き → 押すと診断トップへ）をシェアする
     const shareUrl = typeId ? `${base}/share/${typeId}.html` : base + '/';
     const text = `私の友達タイプは「${T.name||''}」でした。あなたは、どんな友達になる人？`;
     const hook = T.name ? `「${T.name}」だった。` : 'あなたは、どんな友達になる人？';
     const host = root.closest('.phone-screen') || root;
     const old = host.querySelector('.share-sheet'); if(old) old.remove();
-    const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}&hashtags=Mingle友達タイプ診断`;
+    const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}&hashtags=ChillIn友達タイプ診断`;
     const lineUrl = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}`;
     const ogp = typeId ? `assets/share/ogp/${typeId}.png` : '';
     const el = document.createElement('div');
@@ -290,10 +290,10 @@
     const close=()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),250); };
     el.querySelector('.share-x').onclick=close;
     el.addEventListener('click',e=>{ if(e.target===el) close(); });
-    el.querySelectorAll('[data-share]').forEach(a=> a.addEventListener('click',()=>{ if(window.MingleTrack) window.MingleTrack('share', { method:a.getAttribute('data-share'), type_id:typeId||'' }); }));
+    el.querySelectorAll('[data-share]').forEach(a=> a.addEventListener('click',()=>{ if(window.ChillInTrack) window.ChillInTrack('share', { method:a.getAttribute('data-share'), type_id:typeId||'' }); }));
     const imgBtn = el.querySelector('.share-img');
     imgBtn.addEventListener('click', async ()=>{
-      if(window.MingleTrack) window.MingleTrack('share', { method:'image', type_id:typeId||'' });
+      if(window.ChillInTrack) window.ChillInTrack('share', { method:'image', type_id:typeId||'' });
       imgBtn.classList.add('busy'); const sp=imgBtn.querySelector('.sp'); sp.textContent='保存中…';
       const blob = await renderCardPng(typeId, 'stories');
       imgBtn.classList.remove('busy'); sp.textContent='';
@@ -308,7 +308,7 @@
   }
 
   function showStoreSheet(root){
-    const cfg = (window.MINGLE_CONFIG||{}).store||{};
+    const cfg = (window.CHILLIN_CONFIG||{}).store||{};
     const host = root.closest('.phone-screen') || root;
     const old = host.querySelector('.store-sheet'); if(old) old.remove();
     const el = document.createElement('div');
@@ -327,5 +327,5 @@
     el.addEventListener('click',e=>{ if(e.target===el) close(); });
   }
 
-  window.MingleResult = { build, wire };
+  window.ChillInResult = { build, wire };
 })();

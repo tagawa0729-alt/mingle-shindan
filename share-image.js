@@ -4,7 +4,7 @@
    QRは qrcode-generator (window.qrcode) を使用。 */
 (function(){
   const SIZES = { ogp:{w:1200,h:630}, stories:{w:1080,h:1920} };
-  const DIAG_URL = (window.MINGLE_CONFIG && window.MINGLE_CONFIG.diagnoseUrl) || "https://shindan.mingleapp.jp";
+  const DIAG_URL = (window.CHILLIN_CONFIG && window.CHILLIN_CONFIG.diagnoseUrl) || "https://shindan.mingleapp.jp";
   const HOST = DIAG_URL.replace(/^https?:\/\//,'').replace(/\/+$/,'');
 
   function lighten(hex,a){const x=parseInt(hex.slice(1),16);let r=(x>>16)&255,g=(x>>8)&255,b=x&255;r=Math.round(r+(255-r)*a);g=Math.round(g+(255-g)*a);b=Math.round(b+(255-b)*a);return`rgb(${r},${g},${b})`;}
@@ -43,7 +43,7 @@
         <path d="M20 5 L33.6 28.5 H6.4 Z" stroke="${light?'#fff':'#F0714A'}" stroke-width="3.6" stroke-linejoin="round"/>
         <circle cx="20" cy="5" r="4" fill="${light?'#fff':'#F0714A'}"/><circle cx="33.6" cy="28.5" r="4" fill="${light?'#fff':'#2BAE96'}"/><circle cx="6.4" cy="28.5" r="4" fill="${light?'#fff':'#F2A93B'}"/>
       </svg>
-      <span style="font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:${23*s}px;color:${c};letter-spacing:.04em">Mingle</span>
+      <span style="font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:${23*s}px;color:${c};letter-spacing:.04em">ChillIn</span>
     </span>`;
   }
 
@@ -125,5 +125,5 @@
 
   function build(t, format){ return format==='stories' ? buildStories(t) : buildOGP(t); }
 
-  window.MingleShare = { build, SIZES, DIAG_URL, HOST, wrapJP };
+  window.ChillInShare = { build, SIZES, DIAG_URL, HOST, wrapJP };
 })();

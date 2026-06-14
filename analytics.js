@@ -14,7 +14,7 @@
      view_types         16タイプ一覧へ
 */
 (function(){
-  var id = (window.MINGLE_CONFIG && window.MINGLE_CONFIG.ga4Id) || "";
+  var id = (window.CHILLIN_CONFIG && window.CHILLIN_CONFIG.ga4Id) || "";
   window.dataLayer = window.dataLayer || [];
   function gtag(){ window.dataLayer.push(arguments); }
 
@@ -29,13 +29,13 @@
   }
 
   // アプリ内のどこからでも呼べる薄いラッパ
-  window.MingleTrack = function(eventName, params){
+  window.ChillInTrack = function(eventName, params){
     try{
       if(id && typeof gtag === 'function'){
         gtag('event', eventName, params || {});
       }
       // GA4未設定でもデバッグできるよう、コンソールには出す（本番は無害）
-      if(window.MINGLE_DEBUG_ANALYTICS){ console.log('[track]', eventName, params||{}); }
+      if(window.CHILLIN_DEBUG_ANALYTICS){ console.log('[track]', eventName, params||{}); }
     }catch(e){}
   };
 })();

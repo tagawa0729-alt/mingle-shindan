@@ -1,7 +1,7 @@
-/* Mingle 友達タイプ診断 — 全16タイプ コンテンツ
-   出典: MINGLE_QUIZ_TYPES.md（2026-06 改稿版）。window.MINGLE_TYPES に格納。
+/* ChillIn 友達タイプ診断 — 全16タイプ コンテンツ
+   出典: MINGLE_QUIZ_TYPES.md（2026-06 改稿版）。window.CHILLIN_TYPES に格納。
    manual = { unconscious:[{t,d}×3], mingle:[{t,d}×3] }（「本当に求めるグループ像」は廃止） */
-window.MINGLE_TYPES = {
+window.CHILLIN_TYPES = {
 
 "MGL-01":{ id:"MGL-01", name:"太陽の踊り子", code:"EAFC", color:"#F0714A",
   copy:"場の中心で熱と光を放ち続けるキャラクター",

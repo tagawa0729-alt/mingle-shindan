@@ -1,6 +1,6 @@
-/* Mingle 友達タイプ診断 — 通しフロー制御
+/* ChillIn 友達タイプ診断 — 通しフロー制御
    設問・スコアリングは MINGLE_QUIZ_TYPES.md 準拠。
-   window.MingleFlow.init(appEl) で起動。結果は MingleResult.build を再利用。 */
+   window.ChillInFlow.init(appEl) で起動。結果は ChillInResult.build を再利用。 */
 (function(){
   // 12問・6段階の対極スケール。axis: 軸 / 左(低スコア)=左文字, 右(高スコア)=右文字
   const Q = [
@@ -19,7 +19,7 @@
   ];
 
   function codeToId(code){
-    const T = window.MINGLE_TYPES || {};
+    const T = window.CHILLIN_TYPES || {};
     for(const id in T){ if(T[id].code === code) return id; }
     return "MGL-01";
   }
@@ -34,7 +34,7 @@
 
   function init(app){
     let state = { screen:"landing", idx:0, ans:[] };
-    var track = function(n,p){ if(window.MingleTrack) window.MingleTrack(n,p); };
+    var track = function(n,p){ if(window.ChillInTrack) window.ChillInTrack(n,p); };
 
     function go(screen){ state.screen=screen; paint(); }
 
@@ -54,7 +54,7 @@
           <div class="ld-inner">
             <div class="ld-brand">
               <svg width="26" height="26" viewBox="0 0 40 40" fill="none"><path d="M20 5 L33.6 28.5 H6.4 Z" stroke="#F0714A" stroke-width="3.4" stroke-linejoin="round"/><circle cx="20" cy="5" r="4" fill="#F0714A"/><circle cx="33.6" cy="28.5" r="4" fill="#2BAE96"/><circle cx="6.4" cy="28.5" r="4" fill="#F2A93B"/></svg>
-              <span>Mingle</span>
+              <span>ChillIn</span>
             </div>
 
             <div class="ld-hero" aria-hidden="true">
@@ -158,11 +158,11 @@
 
     function result(){
       const id = state.type || score(state.ans);
-      var T = (window.MINGLE_TYPES||{})[id]||{};
+      var T = (window.CHILLIN_TYPES||{})[id]||{};
       track('result_view', { type_id:id, type_name:T.name||'', type_code:T.code||'' });
       app.scrollTop=0;
-      app.innerHTML = window.MingleResult.build(id, 'a') + `<button class="restart" aria-label="もう一度診断する">↻ もう一度</button>`;
-      window.MingleResult.wire(app, { onGoType:(gid)=>{ state.type=gid; result(); } });
+      app.innerHTML = window.ChillInResult.build(id, 'a') + `<button class="restart" aria-label="もう一度診断する">↻ もう一度</button>`;
+      window.ChillInResult.wire(app, { onGoType:(gid)=>{ state.type=gid; result(); } });
       const r = app.querySelector('.result');
       requestAnimationFrame(()=>requestAnimationFrame(()=> r.classList.add('fx')));
       app.querySelector('.restart').onclick = ()=>{ state={screen:"landing",idx:0,ans:[]}; paint(); };
@@ -171,5 +171,5 @@
     paint();
   }
 
-  window.MingleFlow = { init };
+  window.ChillInFlow = { init };
 })();
