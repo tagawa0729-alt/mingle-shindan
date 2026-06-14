@@ -7,7 +7,7 @@ window.MINGLE_CONFIG = {
 
   // ▼ Googleアナリティクス4（GA4）測定ID。GA4で発行した「G-XXXXXXXXXX」を入れる。
   //   空のままなら計測は無効（エラーにはならない）。
-  ga4Id: "",
+  ga4Id: "G-Y35S44LJD3",
 
   // ▼ メール登録の送信先。Vercel Serverless Function を使う想定。
   //   /api/subscribe に {email, type} をPOST。Claude Codeで実装（引き継ぎ書参照）。
