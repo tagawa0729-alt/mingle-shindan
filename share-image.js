@@ -4,7 +4,7 @@
    QRは qrcode-generator (window.qrcode) を使用。 */
 (function(){
   const SIZES = { ogp:{w:1200,h:630}, stories:{w:1080,h:1920} };
-  const DIAG_URL = (window.CHILIN_CONFIG && window.CHILIN_CONFIG.diagnoseUrl) || "https://shindan.mingleapp.jp";
+  const DIAG_URL = (window.CHILIN_CONFIG && window.CHILIN_CONFIG.diagnoseUrl) || "https://shindan.appchilin.com";
   const HOST = DIAG_URL.replace(/^https?:\/\//,'').replace(/\/+$/,'');
 
   function lighten(hex,a){const x=parseInt(hex.slice(1),16);let r=(x>>16)&255,g=(x>>8)&255,b=x&255;r=Math.round(r+(255-r)*a);g=Math.round(g+(255-g)*a);b=Math.round(b+(255-b)*a);return`rgb(${r},${g},${b})`;}

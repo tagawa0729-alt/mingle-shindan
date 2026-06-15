@@ -259,7 +259,7 @@
 
   function showShareSheet(root, typeId){
     const cfg = window.CHILIN_CONFIG||{};
-    const base = (cfg.diagnoseUrl || 'https://shindan.mingleapp.jp').replace(/\/+$/,'');
+    const base = (cfg.diagnoseUrl || 'https://shindan.appchilin.com').replace(/\/+$/,'');
     const T = (window.CHILIN_TYPES||{})[typeId]||{};
     // タイプ別シェアページ（OGP画像付き → 押すと診断トップへ）をシェアする
     const shareUrl = typeId ? `${base}/share/${typeId}.html` : base + '/';
