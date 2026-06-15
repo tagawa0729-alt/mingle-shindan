@@ -53,8 +53,8 @@
           <div class="ld-bg" aria-hidden="true"></div>
           <div class="ld-inner">
             <div class="ld-brand">
-              <svg width="26" height="26" viewBox="0 0 40 40" fill="none"><path d="M20 5 L33.6 28.5 H6.4 Z" stroke="#F0714A" stroke-width="3.4" stroke-linejoin="round"/><circle cx="20" cy="5" r="4" fill="#F0714A"/><circle cx="33.6" cy="28.5" r="4" fill="#2BAE96"/><circle cx="6.4" cy="28.5" r="4" fill="#F2A93B"/></svg>
-              <span>ChilIn</span>
+              <img src="assets/brand/chilin-mark.svg" width="28" height="28" alt="">
+              <span>Chil<span style="color:#F0714A">In</span></span>
             </div>
 
             <div class="ld-hero" aria-hidden="true">
